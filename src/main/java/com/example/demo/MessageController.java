@@ -1,10 +1,9 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.json.Order;
 
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -13,8 +12,15 @@ public class MessageController {
     private MessageProducer messageProducer;
 
     @GetMapping("/send")
+
     public String send(@RequestParam String msg){
         messageProducer.sendMessage(msg);
         return "Message sent";
+    }
+
+    @PostMapping("/sendOrder")
+    public String sendOrder(@RequestBody Order order){
+        messageProducer.sendOrder(order);
+        return "Order send :"+order;
     }
 }
